@@ -1,0 +1,5 @@
+{
+  "*.+(js|jsx)": ["eslint", "prettier --check"],
+  "*.+(ts|tsx)": ["eslint", "prettier --check"],
+  "*.+(css,json,md,mdx)": ["prettier --check"]
+}
