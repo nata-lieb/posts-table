@@ -8,6 +8,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { PostData } from 'api';
 import { memo } from 'react';
+import { createPrimeChecker } from 'utils';
+
+const isPrime = createPrimeChecker();
 
 interface PostsTableProps {
   data: PostData[];
@@ -28,7 +31,7 @@ const columns: readonly Column[] = [
     minWidth: 80,
     align: 'right',
     getStyle: (value: number) => ({
-      fontStyle: value === 5 ? 'italic' : null,
+      fontStyle: isPrime(value) ? 'italic' : null,
     }),
   },
   { id: 'title', label: 'Title', minWidth: 200 },
