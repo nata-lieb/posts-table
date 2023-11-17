@@ -1,7 +1,7 @@
 import { UseQueryOptions, UseQueryResult } from '@tanstack/react-query';
 import { PostData } from 'api';
-import { useCallback } from 'react';
 import { usePostsQuery } from 'hooks';
+import { useCallback } from 'react';
 
 export default function useSearchPostsQuery(
   search?: string,

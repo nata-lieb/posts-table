@@ -6,17 +6,44 @@
       "jsx": true
     }
   },
-  "plugins": ["@typescript-eslint/eslint-plugin"],
+  "plugins": [
+    "jest",
+    "import",
+    "testing-library",
+    "@typescript-eslint/eslint-plugin"
+  ],
   "extends": [
     "eslint:recommended",
+    "plugin:jest/recommended",
+    "plugin:jest/style",
+    "plugin:testing-library/react",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
     "eslint-config-prettier"
   ],
   "rules": {
-    "strict": ["error", "never"]
+    "strict": ["error", "never"],
+    "import/order": [
+      "error",
+      {
+        "groups": ["builtin", "external", "internal"],
+        "pathGroups": [
+          {
+            "pattern": "react",
+            "group": "external",
+            "position": "before"
+          }
+        ],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ]
   },
   "env": {
-    "browser": true
+    "browser": true,
+    "jest/globals": true
   }
 }

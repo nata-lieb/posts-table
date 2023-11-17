@@ -7,13 +7,16 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "test:watch": "react-scripts test --watch",
+    "test:nowatch": "react-scripts test --watchAll=false --passWithNoTests",
+    "test:coverage": "npm test -- --coverage --watchAll=false --runInBand",
     "lint": "eslint --ignore-path .gitignore --ext .js,.jsx,.ts,.tsx --max-warnings 0 .",
     "lint:fix": "npm run lint -- --fix",
     "check-types": "tsc",
     "prettier": "prettier '**/*.{css,json,js,ts,tsx,md,mdx}'",
     "format": "npm run prettier -- --write",
     "check-format": "npm run prettier -- --list-different",
-    "validate": "npm-run-all --parallel check-types check-format lint build",
+    "validate": "npm-run-all --parallel check-types check-format lint build test:nowatch",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -36,11 +39,13 @@
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@typescript-eslint/eslint-plugin": "^6.11.0",
     "@typescript-eslint/parser": "^6.11.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^8.53.0",
     "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-jest": "^27.6.0",
     "eslint-plugin-prettier": "^5.0.1",
     "husky": "^8.0.3",
     "lint-staged": "^15.1.0",
