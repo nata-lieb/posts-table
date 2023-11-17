@@ -1,5 +1,5 @@
 import userEvent from '@testing-library/user-event';
-import { act, render, screen, waitFor } from 'test/test-utils';
+import { render, screen, waitFor } from 'test/test-utils';
 
 import SearchInput from './searchInput';
 
@@ -27,9 +27,7 @@ describe('<SearchInput />', () => {
     const handleChange = jest.fn();
     render(<SearchInput onChange={handleChange} />);
 
-    // Microtasks (setTimeout) in the component cause 'not wrapped in act' warning
-    // eslint-disable-next-line testing-library/no-unnecessary-act
-    act(() => userEvent.type(screen.getByRole('textbox'), 'A'));
+    userEvent.type(screen.getByRole('textbox'), 'A');
     // It won't be called immediately since default delay is 200ms
     expect(handleChange).not.toHaveBeenCalledWith('A');
     await waitFor(() => expect(handleChange).toHaveBeenCalledWith('A'), {
@@ -41,9 +39,7 @@ describe('<SearchInput />', () => {
     const handleChange = jest.fn();
     render(<SearchInput onChange={handleChange} debounceTimeout={50} />);
 
-    // Microtasks (setTimeout) in the component cause 'not wrapped in act' warning
-    // eslint-disable-next-line testing-library/no-unnecessary-act
-    act(() => userEvent.type(screen.getByRole('textbox'), 'A'));
+    userEvent.type(screen.getByRole('textbox'), 'A');
     // It won't be called immediately since the delay is set to 50ms
     expect(handleChange).not.toHaveBeenCalledWith('A');
     await waitFor(() => expect(handleChange).toHaveBeenCalledWith('A'), {
@@ -55,11 +51,7 @@ describe('<SearchInput />', () => {
     const handleChange = jest.fn();
     render(<SearchInput onChange={handleChange} debounceTimeout={50} />);
 
-    // Microtasks (setTimeout) in the component cause 'not wrapped in act' warning
-    // eslint-disable-next-line testing-library/no-unnecessary-act
-    act(() => {
-      userEvent.type(screen.getByRole('textbox'), 'Abc', { delay: 25 });
-    });
+    userEvent.type(screen.getByRole('textbox'), 'Abc', { delay: 25 });
 
     await waitFor(() => expect(handleChange).toHaveBeenCalledTimes(1), {
       timeout: 400,
