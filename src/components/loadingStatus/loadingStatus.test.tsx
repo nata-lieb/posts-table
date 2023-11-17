@@ -30,4 +30,10 @@ describe('<LoadingStatus />', () => {
     expect(screen.getByText('No data to show')).toBeInTheDocument();
     expect(screen.getByLabelText('Error')).toBeInTheDocument();
   });
+
+  test('renders without elevation styles', () => {
+    render(<LoadingStatus isPlain />);
+    // There is an issue with inline snapshots https://github.com/jestjs/jest/issues/14305
+    expect(screen.getByRole('status', { hidden: true })).toMatchSnapshot();
+  });
 });
