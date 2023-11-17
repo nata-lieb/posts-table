@@ -1,3 +1,4 @@
+import AppWrapper from 'appWrapper';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './app';
@@ -8,7 +9,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <AppWrapper>
+      <App />
+    </AppWrapper>
   </React.StrictMode>,
 );
 
