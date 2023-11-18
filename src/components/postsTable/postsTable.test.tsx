@@ -50,10 +50,10 @@ describe('<PostsTable />', () => {
   test('renders styled id values', () => {
     const handleEdit = jest.fn();
     render(<PostsTable data={postsData} handleEdit={handleEdit} />);
-    expect(screen.getByText('4')).not.toHaveStyle(`
+    expect(screen.getByText('title4')).not.toHaveStyle(`
     font-style: italic;
   `);
-    expect(screen.getByText('5')).toHaveStyle(`
+    expect(screen.getByText('title5')).toHaveStyle(`
       font-style: italic;
     `);
   });

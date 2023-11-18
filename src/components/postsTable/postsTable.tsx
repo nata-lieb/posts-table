@@ -34,11 +34,15 @@ const columns: readonly Column[] = [
     label: 'Id',
     minWidth: 80,
     align: 'right',
+  },
+  {
+    id: 'title',
+    label: 'Title',
+    minWidth: 200,
     getStyle: (value: number) => ({
       fontStyle: isPrime(value) ? 'italic' : null,
     }),
   },
-  { id: 'title', label: 'Title', minWidth: 200 },
   {
     id: 'body',
     label: 'Body',
