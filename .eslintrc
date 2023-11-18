@@ -42,8 +42,25 @@
       }
     ]
   },
+  "overrides": [
+    {
+      "files": ["cypress/**"],
+      "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
+        "eslint-config-prettier",
+        "plugin:cypress/recommended"
+      ],
+      "plugins": ["cypress", "@typescript-eslint/eslint-plugin"],
+      "rules": {
+        "jest/expect-expect": "off"
+      }
+    }
+  ],
   "env": {
     "browser": true,
-    "jest/globals": true
+    "jest/globals": true,
+    "cypress/globals": true
   }
 }
