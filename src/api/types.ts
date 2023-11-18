@@ -4,3 +4,5 @@ export interface PostData {
   title: string;
   body: string;
 }
+
+export type UpdatePostData = Omit<PostData, 'userId'>;

@@ -1,4 +1,4 @@
-import { PostData } from './types';
+import { PostData, UpdatePostData } from './types';
 
 // This value should be taken from envs
 const BASE_URL = 'https://jsonplaceholder.typicode.com';
@@ -23,7 +23,7 @@ async function makeRequest<SuccessPayload>(
 const API_HANDLERS = {
   POSTS: {
     GET: (): Promise<PostData[]> => makeRequest('/posts'),
-    UPDATE: (id: number | string, data: PostData): Promise<PostData> =>
+    UPDATE: ({ id, ...data }: UpdatePostData): Promise<PostData> =>
       makeRequest(`/posts/${id}`, {
         method: 'PATCH',
         body: JSON.stringify(data),

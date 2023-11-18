@@ -1,11 +1,14 @@
+import EditIcon from '@mui/icons-material/Edit';
+import IconButton from '@mui/material/IconButton';
 import Paper from '@mui/material/Paper';
 import { SxProps, Theme } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
+import TableCell, { TableCellProps } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import Tooltip from '@mui/material/Tooltip';
 import { PostData } from 'api';
 import { memo } from 'react';
 import { createPrimeChecker } from 'utils';
@@ -14,13 +17,14 @@ const isPrime = createPrimeChecker();
 
 interface PostsTableProps {
   data: PostData[];
+  handleEdit: (item: PostData) => void;
 }
 
 interface Column {
-  id: keyof PostData;
+  id: keyof PostData | 'edit';
   label: string;
   minWidth?: number;
-  align?: 'right';
+  align?: TableCellProps['align'];
   getStyle?: (value: number) => SxProps<Theme>;
 }
 
@@ -46,9 +50,15 @@ const columns: readonly Column[] = [
     minWidth: 80,
     align: 'right',
   },
+  {
+    id: 'edit',
+    label: '',
+    minWidth: 60,
+    align: 'center',
+  },
 ];
 
-function PostsTable({ data }: PostsTableProps): JSX.Element {
+function PostsTable({ data, handleEdit }: PostsTableProps): JSX.Element {
   return (
     <TableContainer sx={{ width: '100%' }} component={Paper}>
       <Table stickyHeader aria-label="Posts table">
@@ -70,14 +80,25 @@ function PostsTable({ data }: PostsTableProps): JSX.Element {
             return (
               <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                 {columns.map((column) => {
-                  const value = row[column.id];
                   return (
                     <TableCell
                       key={column.id}
                       align={column.align}
                       sx={column.getStyle?.(row.id)}
                     >
-                      {value}
+                      {column.id === 'edit' ? (
+                        <Tooltip title={'Edit'} placement="top">
+                          <IconButton
+                            size="small"
+                            color="primary"
+                            onClick={() => handleEdit(row)}
+                          >
+                            <EditIcon />
+                          </IconButton>
+                        </Tooltip>
+                      ) : (
+                        row[column.id]
+                      )}
                     </TableCell>
                   );
                 })}

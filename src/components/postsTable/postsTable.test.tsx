@@ -1,3 +1,4 @@
+import userEvent from '@testing-library/user-event';
 import { render, screen } from 'test/test-utils';
 
 import PostsTable from './postsTable';
@@ -37,20 +38,30 @@ const postsData = [
 
 describe('<PostsTable />', () => {
   test('renders table with data', () => {
-    render(<PostsTable data={[postsData[0]]} />);
+    const handleEdit = jest.fn();
+    render(<PostsTable data={[postsData[0]]} handleEdit={handleEdit} />);
     expect(screen.getByText('101')).toBeInTheDocument();
     expect(screen.getByText('1')).toBeInTheDocument();
     expect(screen.getByText('title1')).toBeInTheDocument();
     expect(screen.getByText('body1')).toBeInTheDocument();
+    expect(screen.getByRole('button')).toBeInTheDocument();
   });
 
   test('renders styled id values', () => {
-    render(<PostsTable data={postsData} />);
+    const handleEdit = jest.fn();
+    render(<PostsTable data={postsData} handleEdit={handleEdit} />);
     expect(screen.getByText('4')).not.toHaveStyle(`
     font-style: italic;
   `);
     expect(screen.getByText('5')).toHaveStyle(`
       font-style: italic;
     `);
+  });
+
+  test('handleEdit is called on button click', async () => {
+    const handleEdit = jest.fn();
+    render(<PostsTable data={[postsData[0]]} handleEdit={handleEdit} />);
+    userEvent.click(screen.getByLabelText('Edit'));
+    expect(handleEdit).toHaveBeenCalledTimes(1);
   });
 });
